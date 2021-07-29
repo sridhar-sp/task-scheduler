@@ -1,0 +1,20 @@
+{
+  "name": "task-scheduler",
+  "version": "1.0.0",
+  "description": "Simple task scheduler implementation to execute task at scheduled future time.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:half-blood-prince/task-scheduler.git"
+  },
+  "keywords": [
+    "task-scheduleer",
+    "dead-letter-exchanges",
+    "DLX"
+  ],
+  "author": "sridhar subramani",
+  "license": "Apache-2.0"
+}
