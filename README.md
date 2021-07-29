@@ -1,2 +1,13 @@
 # task-scheduler
-Task scheduler implementation using RabbitMQ and Redis
+
+
+Simple task scheduler implementation to execute task at scheduled future time.
+
+### Dependencies
+
+* RabbitMQ
+* Reids
+
+### Reference
+
+[Dead Letter Exchanges (DLX)] (https://www.rabbitmq.com/dlx.html)
