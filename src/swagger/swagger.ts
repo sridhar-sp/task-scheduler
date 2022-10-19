@@ -6,8 +6,8 @@ const options = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: config.APP_NAME,
-      version: config.VERSION,
+      title: config.appName,
+      version: config.version,
     },
   },
   apis: ["src/app.ts"],

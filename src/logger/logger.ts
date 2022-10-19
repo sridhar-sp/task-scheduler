@@ -1,22 +1,28 @@
+import config from "../config";
+
 class Logger {
+  private static logToConsole(type: string, tag: string, log: any) {
+    console.log(`${new Date().toISOString()} :: ${config.appName} :: ${type} :: ${tag} :: ${log}`);
+  }
+
   static log(tag: string, log: string) {
-    console.log(`${tag} :: `, log);
+    Logger.logToConsole("Verbose", tag, log);
   }
 
   static logInfo(tag: string, log: any) {
-    console.log(`Info :: ${tag} :: ${log}`);
+    Logger.logToConsole("Info", tag, log);
   }
 
   static logDebug(tag: string, log: any) {
-    console.log(`Debug :: ${tag} :: ${log}`);
+    Logger.logToConsole("Debug", tag, log);
   }
 
   static logError(tag: string, log: any) {
-    console.error(`Error :: ${tag} :: ${log}`);
+    Logger.logToConsole("Error", tag, log);
   }
 
   static logWarn(tag: string, log: any) {
-    console.error(`Warn :: ${tag} :: ${log}`);
+    Logger.logToConsole("Warn", tag, log);
   }
 }
 

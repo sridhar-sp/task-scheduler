@@ -8,9 +8,9 @@ import swaggerMiddleware from "./swagger/swagger";
 const TAG = "app";
 
 const app = express();
-const PORT = config.PORT;
+const PORT = config.port;
 
-const producer = Producer.create(config.RABBIT_MQ_URL!!);
+const producer = Producer.create(config.rabbitMQURL!!);
 
 app.use("/api-docs", swaggerMiddleware.ui, swaggerMiddleware.doc);
 app.use("/api-docs.json", (req: express.Request, res: express.Response) => {
@@ -120,7 +120,7 @@ app.get(
 app.get("/setupConsumer/:consumerName/:queueName", async (req: express.Request, res: express.Response) => {
   const consumerName: string = req.params.consumerName;
   const queueName: string = req.params.queueName;
-  const consumer: Consumer = Consumer.create(config.RABBIT_MQ_URL!!);
+  const consumer: Consumer = Consumer.create(config.rabbitMQURL!!);
   consumer.consume(queueName, (payload) => {
     Logger.log(
       TAG,

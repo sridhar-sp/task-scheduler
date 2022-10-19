@@ -8,7 +8,7 @@ class RedisHelper {
   redisClient: RedisClient;
 
   constructor() {
-    this.redisClient = redis.createClient(config.REDIS_URL, { no_ready_check: true });
+    this.redisClient = redis.createClient(config.redisURL, { no_ready_check: true });
     this.redisClient.on("error", function (error) {
       Logger.logError(TAG, error);
     });

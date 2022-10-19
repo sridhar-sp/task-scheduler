@@ -12,7 +12,7 @@ class TaskConsumerImpl implements TaskConsumer {
   private consumer: Consumer;
 
   public static create(taskRepository: TaskRepository): TaskConsumer {
-    return new TaskConsumerImpl(taskRepository, Consumer.create(config.RABBIT_MQ_URL));
+    return new TaskConsumerImpl(taskRepository, Consumer.create(config.rabbitMQURL));
   }
 
   private constructor(taskRepository: TaskRepository, consumer: Consumer) {
