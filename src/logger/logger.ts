@@ -2,7 +2,9 @@ import config from "../config";
 
 class Logger {
   private static logToConsole(type: string, tag: string, log: any) {
-    console.log(`${new Date().toISOString()} :: ${config.appName} :: ${type} :: ${tag} :: ${log}`);
+    let pidLogSuffix = "";
+    if (config.isClusterModeEnabled) pidLogSuffix = `pid ${process.pid} ::`;
+    console.log(`${new Date().toISOString()} :: ${pidLogSuffix} ${config.appName} :: ${type} :: ${tag} :: ${log}`);
   }
 
   static log(tag: string, log: string) {

@@ -26,7 +26,8 @@ class TaskConsumerImpl implements TaskConsumer {
       const isTaskValid = await this.taskRepository.isTaskValid(task.taskId);
       logger.logInfo(
         TAG,
-        `Time to execute ${taskType} isTaskValid=${isTaskValid} received at ${new Date().toTimeString()}`
+        `Time to execute ${taskType}.
+        Task is ${isTaskValid ? "" : "in"} valid and ${isTaskValid ? "" : "not"} eligible to execute`
       );
       if (isTaskValid) {
         handler(task);

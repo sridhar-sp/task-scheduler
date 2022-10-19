@@ -5,7 +5,7 @@ import config from "./config";
 
 const TAG = "main";
 
-if (config.isClusterModeEnabled && cluster.isPrimary) {
+if (config.isClusterModeEnabled === "true" && cluster.isPrimary) {
   Logger.log(TAG, "Master node called");
   const numOfCores = os.cpus().length;
   Logger.log(TAG, `${numOfCores} available`);

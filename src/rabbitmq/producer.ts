@@ -12,8 +12,10 @@ class Producer extends AMQBBase {
     super(url);
   }
 
-  public sendDelayedMessageToQueue(queueName: string, delayInMills: number, data: string): Promise<void> {
-    Logger.logInfo(TAG, `Initiate Send delayed message to ${queueName} at ${new Date().toTimeString()}`);
+  public sendDelayedMessageToQueue(taskType: string, delayInMills: number, data: string): Promise<void> {
+    const queueName = taskType; // Task type is going to be our queue name.
+
+    Logger.logInfo(TAG, `Scheduling is initated for task ${queueName}.`);
 
     const INTERMEDIATE_QUEUE = `${queueName}_INTERMEDIATE_QUEUE`;
     const INTERMEDIATE_EXCHANGE = `${queueName}_INTERMEDIATE_EXCHANGE`;
@@ -34,11 +36,11 @@ class Producer extends AMQBBase {
           this.channel?.sendToQueue(INTERMEDIATE_QUEUE, Buffer.from(data), {
             expiration: delayInMills,
           });
-          Logger.logInfo(TAG, `Send message to queue at ${new Date().toTimeString()}`);
+          Logger.logInfo(TAG, `Scheduled ${queueName} task`);
           resolve();
         })
         .catch((error: Error) => {
-          Logger.logInfo(TAG, `Error while trying to send delayed message. Process id ${process.pid}`);
+          Logger.logError(TAG, `An error occurred while attempting to schedule a ${queueName} task.`);
           reject(error);
         });
     });
