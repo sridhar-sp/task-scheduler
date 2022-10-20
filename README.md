@@ -8,13 +8,13 @@ This is a sample demonstrating how to achieve a delayed task execution using Rab
 
 ###### Name : Email-Service-1
 
-Start Email-Service-1.
+**Start Email-Service-1.**
 
 ```
 APP_NAME=Email-Service-1 PORT=4000 yarn start
 ```
 
-Setup Email-Service-1 to consume `greet` task type.
+**Setup Email-Service-1 to consume `greet` task type.**
 
 ```
 curl --location --request POST 'http://localhost:4000/setupConsumer' \
@@ -24,7 +24,7 @@ curl --location --request POST 'http://localhost:4000/setupConsumer' \
 }'
 ```
 
-Setup Email-Service-1 to consume `offer-notification` task type.
+**Setup Email-Service-1 to consume `offer-notification` task type.**
 
 ```
 curl --location --request POST 'http://localhost:4000/setupConsumer' \
@@ -38,13 +38,13 @@ curl --location --request POST 'http://localhost:4000/setupConsumer' \
 
 ##### Name : Email-Service-2
 
-Start Email-Service-2.
+**Start Email-Service-2.**
 
 ```
 APP_NAME=Email-Service-2 PORT=4001 yarn start
 ```
 
-Setup Email-Service-2 to consume `offer-notification` task type.
+**Setup Email-Service-2 to consume `offer-notification` task type.**
 
 ```
 curl --location --request POST 'http://localhost:4001/setupConsumer' \
@@ -62,13 +62,13 @@ curl --location --request POST 'http://localhost:4001/setupConsumer' \
 
 ##### Name : Greeter-Service
 
-Start Greeter-Service.
+**Start Greeter-Service.**
 
 ```
 APP_NAME=Greeter PORT=3000 yarn start
 ```
 
-Use `Greeter-Service` to schedule a `greet` task type to send new-year wishes to customers based on their time zones.
+**Use `Greeter-Service` to schedule a `greet` task type to send new-year wishes to customers based on their time zones.**
 
 ```
 curl --location --request POST 'http://localhost:3000/schedule' \
@@ -96,13 +96,13 @@ curl --location --request POST 'http://localhost:3000/schedule' \
 
 ##### Name : Offer-Notification-Service
 
-Start Offer-Notification-Service.
+**Start Offer-Notification-Service.**
 
 ```
 APP_NAME=Offer-Notification PORT=3001 yarn start
 ```
 
-Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details early to premium customers.
+**Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details early to premium customers.**
 
 ```
 curl --location --request POST 'http://localhost:3001/schedule' \
@@ -115,7 +115,7 @@ curl --location --request POST 'http://localhost:3001/schedule' \
 }'
 ```
 
-Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details at morning to non-premium non-premium customers.
+**Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details at morning to non-premium non-premium customers.**
 
 ```
 curl --location --request POST 'http://localhost:3001/schedule' \
