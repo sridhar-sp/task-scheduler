@@ -1,18 +1,22 @@
-import express from "express";
 import bodyParser from "body-parser";
+import express from "express";
 import config from "./config/config";
-import Consumer from "./rabbitmq/consumer";
-import Producer from "./rabbitmq/producer";
 import Logger from "./logger";
+import redisHelper from "./redis/redisHelperSingleton";
 import swaggerMiddleware from "./swagger/swagger";
+import TaskConsumerImpl from "./task/consumer";
+import TaskRepositoryImpl from "./task/repository/taskRepositoryImpl";
+import TaskSchedulerImpl from "./task/scheduler";
+import Task from "./task/task";
 
 const TAG = "app";
 
 const PORT = config.port;
 const appName = config.appName;
 
-const producer = Producer.create(config.rabbitMQURL!!);
-const consumer: Consumer = Consumer.create(config.rabbitMQURL!!);
+const taskRepository = TaskRepositoryImpl.create(redisHelper);
+const taskScheduler = TaskSchedulerImpl.create(taskRepository);
+const taskConsumer = TaskConsumerImpl.create(taskRepository);
 
 const app = express();
 
@@ -26,18 +30,42 @@ app.post("/schedule", async (req: express.Request, res: express.Response) => {
   const taskType: string = req.body.taskType;
   const payload: string = req.body.payload;
   const timeInMillis: number = parseInt(req.body.timeInMillis);
-  producer.sendDelayedMessageToQueue(taskType, timeInMillis, payload);
-  res.send(`The ${taskType} task is scheduled.`);
+  const task = Task.create(taskType, timeInMillis, payload);
+
+  taskScheduler
+    .scheduleTask(timeInMillis, task)
+    .then(() => {
+      res.json({
+        taskId: task.taskId,
+        status: `The ${taskType} task is scheduled.`,
+      });
+    })
+    .catch(() => {
+      res.status(500).json({ status: `Error while scheduling task` });
+    });
 });
 
 app.post("/setupConsumer", async (req: express.Request, res: express.Response) => {
-  const queueName: string = req.body.queueName;
+  const taskType: string = req.body.taskType;
 
-  consumer.consume(queueName, (payload) => {
-    Logger.logInfo(TAG, `The ${appName} received the task to execute. Task -> ${payload}`);
+  taskConsumer.consume(taskType, (payload) => {
+    Logger.logInfo(TAG, `The ${appName} received the task to execute. Task -> ${JSON.stringify(payload)}`);
   });
 
   res.send(`Consumer setup is initiated.`);
+});
+
+app.post("/invalidateTask", async (req: express.Request, res: express.Response) => {
+  const taskId: string = req.body.taskId;
+
+  taskScheduler
+    .invalidateTask(taskId)
+    .then(() => {
+      res.json({ status: `Cancel the task.` });
+    })
+    .catch(() => {
+      res.status(500).json({ status: `Error while canceling task` });
+    });
 });
 
 app.use("/api-docs", swaggerMiddleware.ui, swaggerMiddleware.doc);

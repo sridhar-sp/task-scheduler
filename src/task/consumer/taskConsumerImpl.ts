@@ -24,14 +24,12 @@ class TaskConsumerImpl implements TaskConsumer {
     this.consumer.consume(taskType.toString(), async (payload: string) => {
       const task = Task.fromJson(payload);
       const isTaskValid = await this.taskRepository.isTaskValid(task.taskId);
-      logger.logInfo(
-        TAG,
-        `Time to execute ${taskType}.
-        Task is ${isTaskValid ? "" : "in"} valid and ${isTaskValid ? "" : "not"} eligible to execute`
-      );
-      if (isTaskValid) {
-        handler(task);
-      }
+
+      logger.logInfo(TAG, `Time to execute ${taskType}.`);
+      if (isTaskValid) logger.logInfo(TAG, "Task is valid and eligible to execute.");
+      else logger.logInfo(TAG, "Task is invalid and not eligible to execute.");
+
+      if (isTaskValid) handler(task);
     });
   }
 }
