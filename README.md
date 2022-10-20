@@ -8,7 +8,9 @@ This is a sample demonstrating how to achieve a delayed task execution using Rab
 
 ###### Name : Email-Service-1
 
-`APP_NAME=Email-Service-1 PORT=4000 yarn start`
+```
+APP_NAME=Email-Service-1 PORT=4000 yarn start
+```
 
 ```
 curl --location --request POST 'http://localhost:4000/setupConsumer' \
@@ -30,7 +32,9 @@ curl --location --request POST 'http://localhost:4000/setupConsumer' \
 
 ###### Name : Email-Service-2
 
-`APP_NAME=Email-Service-2 PORT=4001 yarn start`
+```
+APP_NAME=Email-Service-2 PORT=4001 yarn start
+```
 
 ```
 curl --location --request POST 'http://localhost:4001/setupConsumer' \
@@ -46,7 +50,9 @@ curl --location --request POST 'http://localhost:4001/setupConsumer' \
 
 ###### Name : Greeter-Service
 
-`APP_NAME=Greeter PORT=3000 yarn start`
+```
+APP_NAME=Greeter PORT=3000 yarn start
+```
 
 ```
 curl --location --request POST 'http://localhost:3000/schedule' \
@@ -74,7 +80,9 @@ curl --location --request POST 'http://localhost:3000/schedule' \
 
 ###### Name : Offer-Notification-Service
 
-`APP_NAME=Offer-Notification PORT=3001 yarn start`
+```
+APP_NAME=Offer-Notification PORT=3001 yarn start
+```
 
 ```
 curl --location --request POST 'http://localhost:3001/schedule' \
