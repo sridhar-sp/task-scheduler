@@ -2,15 +2,19 @@
 
 This is a sample demonstrating how to achieve a delayed task execution using RabbitMQ deadLetterExchange and message expiration time.
 
-#### Consumer
+### Consumer
 
-##### Consumer 1
+#### Consumer 1
 
 ###### Name : Email-Service-1
+
+Start Email-Service-1.
 
 ```
 APP_NAME=Email-Service-1 PORT=4000 yarn start
 ```
+
+Setup Email-Service-1 to consume `greet` task type.
 
 ```
 curl --location --request POST 'http://localhost:4000/setupConsumer' \
@@ -20,6 +24,8 @@ curl --location --request POST 'http://localhost:4000/setupConsumer' \
 }'
 ```
 
+Setup Email-Service-1 to consume `offer-notification` task type.
+
 ```
 curl --location --request POST 'http://localhost:4000/setupConsumer' \
 --header 'Content-Type: application/json' \
@@ -28,13 +34,17 @@ curl --location --request POST 'http://localhost:4000/setupConsumer' \
 }'
 ```
 
-##### Consumer 2
+#### Consumer 2
 
-###### Name : Email-Service-2
+##### Name : Email-Service-2
+
+Start Email-Service-2.
 
 ```
 APP_NAME=Email-Service-2 PORT=4001 yarn start
 ```
+
+Setup Email-Service-2 to consume `offer-notification` task type.
 
 ```
 curl --location --request POST 'http://localhost:4001/setupConsumer' \
@@ -44,22 +54,28 @@ curl --location --request POST 'http://localhost:4001/setupConsumer' \
 }'
 ```
 
-#### Producer
+---
 
-##### Producer 1
+### Producer
 
-###### Name : Greeter-Service
+#### Producer 1
+
+##### Name : Greeter-Service
+
+Start Greeter-Service.
 
 ```
 APP_NAME=Greeter PORT=3000 yarn start
 ```
+
+Use `Greeter-Service` to schedule a `greet` task type to send new-year wishes to customers based on their time zones.
 
 ```
 curl --location --request POST 'http://localhost:3000/schedule' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "taskType":"greet",
-    "payload":"Send new-year wishes to all customers with UTC 5.30 timezone",
+    "payload":"Send new-year wishes to all customers in the UTC 5.30 timezone.",
     "timeInMillis":2500
 }'
 ```
@@ -71,18 +87,22 @@ curl --location --request POST 'http://localhost:3000/schedule' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "taskType":"greet",
-    "payload":"Send new-year wishes to all customers with UTC 5.00 timezone",
+    "payload":"Send new-year wishes to all customers in the UTC 5.00 timezone.",
     "timeInMillis":2000
 }'
 ```
 
-##### Producer 2
+#### Producer 2
 
-###### Name : Offer-Notification-Service
+##### Name : Offer-Notification-Service
+
+Start Offer-Notification-Service.
 
 ```
 APP_NAME=Offer-Notification PORT=3001 yarn start
 ```
+
+Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details early to premium customers.
 
 ```
 curl --location --request POST 'http://localhost:3001/schedule' \
@@ -94,6 +114,8 @@ curl --location --request POST 'http://localhost:3001/schedule' \
 
 }'
 ```
+
+Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details at morning to non-premium non-premium customers.
 
 ```
 curl --location --request POST 'http://localhost:3001/schedule' \
@@ -108,7 +130,9 @@ curl --location --request POST 'http://localhost:3001/schedule' \
 
 - The `schedule` api will return the task id, which can be used to invalidate the task if required.
 
-#### Invalidate scheduled task
+---
+
+### Invalidate scheduled task
 
 ```
 curl --location --request POST 'http://localhost:3000/invalidateTask' \
