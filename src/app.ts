@@ -52,6 +52,7 @@ app.post("/setupConsumer", async (req: express.Request, res: express.Response) =
     Logger.logInfo(TAG, `The ${appName} received the task to execute. Task -> ${JSON.stringify(payload)}`);
   });
 
+  Logger.logInfo(TAG, `Consumer is initiated for task ${taskType}.`);
   res.send(`Consumer setup is initiated.`);
 });
 
@@ -61,7 +62,7 @@ app.post("/invalidateTask", async (req: express.Request, res: express.Response) 
   taskScheduler
     .invalidateTask(taskId)
     .then(() => {
-      res.json({ status: `Cancel the task.` });
+      res.json({ status: `Task is invalidated.` });
     })
     .catch(() => {
       res.status(500).json({ status: `Error while canceling task` });
