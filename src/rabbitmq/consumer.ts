@@ -16,11 +16,11 @@ class Consumer extends AMQBBase {
     const FINAL_EXCHANGE_TYPE = "fanout";
 
     this.assertExchange(FINAL_EXCHANGE, FINAL_EXCHANGE_TYPE)
-      .then((_) => this.assertQueue(queue, {}))
+      .then((_) => this.assertQueue(FINAL_QUEUE, {}))
       .then((_) => this.bindQueue(FINAL_QUEUE, FINAL_EXCHANGE, ""))
       .then((_) => {
         this.channel?.consume(
-          queue,
+          FINAL_QUEUE,
           (msg: Message | null) => {
             handler(msg?.content ? msg?.content.toString() : "");
           },
