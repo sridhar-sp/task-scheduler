@@ -1,0 +1,29 @@
+# Bold
+BGreen='\033[1;32m'       # Green
+# Bold High Intensity
+BICyan='\033[1;96m'       # Cyan
+
+TITLE_COLOR=$BGreen
+TITLE_HIGHLIGHT_COLOR=$BICyan
+NC='\033[0m' # No Color
+
+
+alias start_consumer_one='
+echo "${TITLE_COLOR}Running APP_NAME=Email-Service-1 PORT=4000 yarn start ${NC}"
+APP_NAME=Email-Service-1 PORT=4000 yarn start
+'
+
+alias start_consumer_two='
+echo "${TITLE_COLOR}Running APP_NAME=Email-Service-2 PORT=4001 yarn start ${NC}"
+APP_NAME=Email-Service-2 PORT=4001 yarn start
+'
+
+alias start_greeter_service_producer='
+echo "${TITLE_COLOR}Running: APP_NAME=Greeter PORT=3000 yarn start ${NC}"
+APP_NAME=Greeter PORT=3000 yarn start
+'
+
+alias start_offer_notification_service_producer='
+echo "${TITLE_COLOR}Running: APP_NAME=Offer-Notification PORT=3001 yarn start ${NC}"
+APP_NAME=Offer-Notification PORT=3001 yarn start
+'

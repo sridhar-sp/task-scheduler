@@ -115,7 +115,7 @@ curl --location --request POST 'http://localhost:3001/schedule' \
 }'
 ```
 
-**Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details at morning to non-premium non-premium customers.**
+**Use `Offer-Notification-Service` to schedule an `offer-notification` task type to send black Friday offer details at morning to non-premium customers.**
 
 ```
 curl --location --request POST 'http://localhost:3001/schedule' \
