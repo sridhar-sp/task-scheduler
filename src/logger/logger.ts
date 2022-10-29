@@ -8,23 +8,23 @@ class Logger {
   }
 
   static log(tag: string, log: string) {
-    Logger.logToConsole("Verbose", tag, log);
+    Logger.logToConsole("V", tag, log);
   }
 
   static logInfo(tag: string, log: any) {
-    Logger.logToConsole("Info", tag, log);
+    Logger.logToConsole("I", tag, log);
   }
 
   static logDebug(tag: string, log: any) {
-    Logger.logToConsole("Debug", tag, log);
+    Logger.logToConsole("D", tag, log);
   }
 
   static logError(tag: string, log: any) {
-    Logger.logToConsole("Error", tag, log);
+    Logger.logToConsole("E", tag, log);
   }
 
   static logWarn(tag: string, log: any) {
-    Logger.logToConsole("Warn", tag, log);
+    Logger.logToConsole("W", tag, log);
   }
 }
 

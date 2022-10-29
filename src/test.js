@@ -99,7 +99,7 @@ const scheduleGreetTaskToExecuteAfter2Seconds = () => {
   --data-raw '{
       "taskType":"greet",
       "payload":"Send new-year wishes to all customers in the UTC 5.30 timezone.",
-      "timeInMillis":2500
+      "timeInMillis":2000
   }'`);
 
   fetch("http://localhost:3000/schedule", {
@@ -202,18 +202,20 @@ const setupConsumers = async () => {
   setupConsumerOneToReceiveOfferNotificationTasks();
   await sleep(1000);
   setupConsumerTwoToReceiveOfferNotificationTasks();
+  await sleep(1000);
   console.log(`${TITLE_COLOR}\nConsumer setup is completed ${NC}`);
 };
 
 const scheduleTasks = async () => {
   console.log(`${TITLE_COLOR}\nSchedule tasks ${NC}`);
   scheduleGreetTaskToExecuteAfter2Seconds();
-  await sleep(500);
+  await sleep(1000);
   scheduleGreetTaskToExecuteAfter3Seconds();
-  await sleep(2000);
+  await sleep(1000);
   scheduleBlackFridayOfferNotficationTaskToExecuteAfter2SecondsForPremiumCustomers();
   await sleep(1000);
   scheduleBlackFridayOfferNotficationTaskToExecuteAfter4SecondsForNonPremiumCustomers();
+  console.log(`${TITLE_COLOR}\Scheduling task completed ${NC}`);
 };
 
 const test = async () => {
