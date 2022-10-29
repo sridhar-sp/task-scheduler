@@ -141,3 +141,11 @@ curl --location --request POST 'http://localhost:3000/invalidateTask' \
     "taskId": "taskId"
 }'
 ```
+
+Task-Scheduler-Demo.m4v
+
+<details><summary>See demo.</summary>
+  ![demo-video]
+</details>
+
+[demo-video]: docs/Task-Scheduler-Demo-Compressed.mp4
