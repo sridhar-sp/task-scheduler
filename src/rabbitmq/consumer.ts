@@ -10,9 +10,9 @@ class Consumer extends AMQBBase {
     super(url);
   }
 
-  public consume(queue: string, handler: (payload: string) => void) {
-    const FINAL_QUEUE = queue;
-    const FINAL_EXCHANGE = `${queue}_FINAL_EXCHANGE`;
+  public consume(taskType: string, handler: (payload: string) => void) {
+    const FINAL_QUEUE = taskType;
+    const FINAL_EXCHANGE = `${taskType}_FINAL_EXCHANGE`;
     const FINAL_EXCHANGE_TYPE = "fanout";
 
     this.assertExchange(FINAL_EXCHANGE, FINAL_EXCHANGE_TYPE)
