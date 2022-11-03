@@ -2,7 +2,7 @@
 
 This is a sample demonstrating how to achieve a delayed task execution using RabbitMQ deadLetterExchange and message expiration time.
 
-Checkout the [medium article](https://https://betterprogramming.pub/build-a-distributed-task-scheduler-using-rabbitmq-and-redis-8ee1310cfc8)
+Checkout the [medium article](https://betterprogramming.pub/build-a-distributed-task-scheduler-using-rabbitmq-and-redis-8ee1310cfc8)
 
 
 ### Consumer
